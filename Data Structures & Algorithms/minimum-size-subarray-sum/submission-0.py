@@ -1,0 +1,15 @@
+class Solution:
+    def minSubArrayLen(self, target, nums):
+        left = 0
+        total = 0
+        best = float('inf')
+
+        for right in range(len(nums)):
+            total += nums[right]            # expand window
+
+            while total >= target:          # shrink while valid
+                best = min(best, right - left + 1)
+                total -= nums[left]
+                left += 1
+
+        return 0 if best == float('inf') else best
